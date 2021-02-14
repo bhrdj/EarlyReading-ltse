@@ -77,6 +77,11 @@ echo ndk.dir="${ANDROID_SDK_PATH}/ndk/20.0.5594570/" >> local.properties
 6. run ./build_all.sh
 7. If successfully built, the APK will live be in your project directory under `app/build/outputs/apk`. If not successfully built, check `build_log.txt` for more information.
 
+To get a Cloud Speech API key:
+
+1. Enable the Cloud Speech API by going to the Google Cloud [API Library](https://console.cloud.google.com/apis/library).
+2. Go to your Google Cloud [Credentials](https://console.cloud.google.com/apis/credentials) to create an API key.
+
 # What this library does (and important tricks for getting good results):
 
 The purpose of this library is to simulate an infinite connection to Google's
