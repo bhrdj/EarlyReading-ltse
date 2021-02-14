@@ -60,6 +60,8 @@ Requirements: CMake, Gradle, Android SDK/NDK
    ./build_all.sh
 ```
 
+## Build guide
+
 Some very specific details on how to build as of Feb 14, 2020:
 
 1. Install [Android Studio](https://developer.android.com/studio).
