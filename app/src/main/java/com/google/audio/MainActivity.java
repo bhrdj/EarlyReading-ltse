@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
       (formattedTranscript, updateType) -> {
         runOnUiThread(
             () -> {
-              transcript.setText(formattedTranscript.toString());
+              transcript.setText("steve sez: " + formattedTranscript.toString());
             });
       };
 

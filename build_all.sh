@@ -22,6 +22,7 @@ fi
 
 # Tell gradle where the Android SDK is located.
 echo sdk.dir="${ANDROID_SDK_PATH}" > local.properties
+echo ndk.dir="${ANDROID_SDK_PATH}/ndk/20.0.5594570" >> local.properties
 
 # Build the app.
 echo "Building Live Transcribe Speech Engine demo app..."
