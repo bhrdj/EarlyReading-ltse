@@ -60,6 +60,21 @@ Requirements: CMake, Gradle, Android SDK/NDK
    ./build_all.sh
 ```
 
+Some very specific details on how to build as of Feb 14, 2020:
+
+1. Install [Android Studio](https://developer.android.com/studio).
+2. Start a project from Android Studio: File > New > Project from version control and enter `https://github.com/roboton/live-transcribe-speech-engine` as the URL. Also choose a parent directory for this project. Hit `Clone`.
+3. Install NDK from File > Settings > Appearance & Behavior > System Settings > Android SDK > SDK Tools (tab). In the bottom right check `Show Package Details` and then scroll down to `NDK (Side by side)` and slect version `20.0.5594570`. Also select `CMake`. Click `Apply` which will begin to download and install NDK and CMake.
+4. In the project directory, edit build_all.sh and add the second line under the first line. You'll need to ensure $ANDROID_SDK_PATH is set per directions in step 1.
+```
+# Tell gradle where the Android SDK is located.
+echo sdk.dir="${ANDROID_SDK_PATH}" > local.properties
+echo ndk.dir="${ANDROID_SDK_PATH}/ndk/20.0.5594570/" >> local.properties
+```
+5. Make gradlew file in project directory root execuable: chmod u+x gradlew
+6. run ./build_all.sh
+7. If successfully built, the APK will live be in your project directory under `app/build/outputs/apk`. If not successfully built, check `build_log.txt` for more information.
+
 # What this library does (and important tricks for getting good results):
 
 The purpose of this library is to simulate an infinite connection to Google's
