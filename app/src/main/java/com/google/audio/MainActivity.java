@@ -53,6 +53,10 @@ import com.google.audio.asr.TranscriptionResultUpdatePublisher;
 import com.google.audio.asr.TranscriptionResultUpdatePublisher.ResultSource;
 import com.google.audio.asr.cloud.CloudSpeechSessionFactory;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
+
 public class MainActivity extends AppCompatActivity {
 
   private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
@@ -78,13 +82,48 @@ public class MainActivity extends AppCompatActivity {
   private NetworkConnectionChecker networkChecker;
   private TextView transcript;
 
+
+
+  // ADDED IN BY BHRDJ 2021-03-19
+  private static String[] wordBankMethod() {
+    String[] wordBank = {
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "purple"
+    };
+    return wordBank;
+  }
+
+  // ADDED IN BY BHRDJ 2021-03-19
+  private List<String> wordBank = Arrays.asList(wordBankMethod());
+
+  // ADDED IN BY BHRDJ 2021-03-19
+  private static String wordFilter (String formattedTranscript, List<String> wordBank) {
+    StringTokenizer tokenizedFormattedT = new StringTokenizer(formattedTranscript.toLowerCase(),
+            "(){}<>\"\'?,.);: \n\t");
+    while (tokenizedFormattedT.hasMoreTokens()) {
+      String nextFormattedWord = tokenizedFormattedT.nextToken();
+      if (wordBank.contains(nextFormattedWord)) {
+        return nextFormattedWord;
+      } else {
+        continue;
+      }
+    }
+    return "";
+  }
+
+  // UPDATED BY BHRDJ 2021-03-19
   private final TranscriptionResultUpdatePublisher transcriptUpdater =
-      (formattedTranscript, updateType) -> {
-        runOnUiThread(
-            () -> {
-              transcript.setText("steve sez: " + formattedTranscript.toString());
-            });
-      };
+          (googlesFormattedTranscript, updateType) -> {
+            String myFormattedTranscript = wordFilter(googlesFormattedTranscript.toString(), wordBank);
+            runOnUiThread(
+                    () -> {
+                      transcript.setText((myFormattedTranscript.toString()))  ;
+                    });
+          };
 
   private Runnable readMicData =
       () -> {
